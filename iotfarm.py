@@ -40,14 +40,32 @@ class LoRaRcvCont(LoRa):
             data = bytes(payload).decode("utf-8")
         except:
             data = bytes(payload).decode("latin-1", "ignore")
+        
         print("Raw data:", data)
         print("Payload bytes:", payload)
+        
+   
+        if "Temp:" in data and "Humidity:" in data:
+            try:
+                temp_str = data.split("Temp:")[1].split(";")[0]
+                humidity_str = data.split("Humidity:")[1].split(";")[0]
+                temp = float(temp_str)
+                humidity = float(humidity_str)
+                
+                print(f"Nhiệt độ: {temp} °C")
+                print(f"Độ ẩm: {humidity} %")
+            except Exception as e:
+                print("Không thể phân tích dữ liệu:", e)
+        else:
+            print("Dữ liệu không chứa thông tin nhiệt độ và độ ẩm.")
+        
         print("------------------------------------")
         print("Packet RSSI:", self.get_pkt_rssi_value(), "dBm")
         print("Packet SNR :", self.get_pkt_snr_value(), "dB")
         print("Frequency  :", self.get_freq() / 1e6, "MHz")
         print("Length     :", len(payload), "bytes")
         print("====================================\n")
-        if __name__ == "__main__":
+
+if __name__ == "__main__":
     lora = LoRaRcvCont(verbose=False)
     lora.start()
