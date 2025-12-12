@@ -1,6 +1,10 @@
-from time import sleep
-from SX127x.LoRa import *
+import sys
+sys.path.append('/home/pi/pySX127x')
+
+from SX127x.LoRa import LoRa
 from SX127x.board_config import BOARD
+from SX127x.constants import MODE
+from time import sleep
 import sys
 import datetime
 
@@ -44,3 +48,6 @@ class LoRaRcvCont(LoRa):
         print("Frequency  :", self.get_freq() / 1e6, "MHz")
         print("Length     :", len(payload), "bytes")
         print("====================================\n")
+        if __name__ == "__main__":
+    lora = LoRaRcvCont(verbose=False)
+    lora.start()
