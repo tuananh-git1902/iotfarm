@@ -1,0 +1,10 @@
+carla==0.9.16          # hoặc cài file .whl trong CARLA_0.9.16/PythonAPI/carla/dist
+gymnasium>=0.29
+stable-baselines3[extra]>=2.3
+torch                  # cài bản có CUDA theo pytorch.org (xem README)
+torchvision
+numpy
+networkx               # GlobalRoutePlanner của CARLA cần
+shapely
+pygame                 # màn hình theo dõi trong drive.py
+opencv-python          # quay video trong drive.py
